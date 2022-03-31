@@ -1,14 +1,24 @@
+const express = require('express');
+const logger = require('morgan');
+const bodyParser = require('body-parser');// This will be our application entry. We'll setup our server here.
+
 const http = require('http');
+// Set up the express app
+const app = express();// Log requests to the console.
 
-const hostname = '127.0.0.1';
-const port = 3000;
+app.use(logger('dev'));
+// Parse incoming requests data (https://github.com/expressjs/body-parser)
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+require('./routes')(app);
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hola Mundo');
-});
+app.get('*', (req, res) => res.status(200).send({
+  message: 'Welcome to the beginning of nothingness.',
+}));
 
-server.listen(port, hostname, () => {
-  console.log(`El servidor se está ejecutando en http://${hostname}:${port}/`);
-});
+const port = parseInt(process.env.PORT, 10) || 8000;
+app.set('port', port);
+const server = http.createServer(app);
+server.listen(port);
+
+module.exports = app;
