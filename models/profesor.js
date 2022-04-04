@@ -37,12 +37,12 @@ module.exports = (sequelize, DataTypes) => {
     telefono: {
       type: DataTypes.STRING,
     },
-    // estatus_interno: {
-    //   type: DataTypes.STRING, // ENUM
-    // },
-    // tipo: {
-    //   type: DataTypes.STRING, // ENUM
-    // },
+    estatus_interno: {
+      type: DataTypes.ENUM('activo', 'inactivo', 'enContratacion', 'stand-by', 'rechazado'),
+    },
+    tipo: {
+      type: DataTypes.ENUM('planta', 'plantaInterna', 'lecture', 'catedra', 'pensionado', 'm40', 'director', 'investigador', 'otroCampus'),
+    },
     clase_en_ingles: {
       type: DataTypes.BOOLEAN,
     },
