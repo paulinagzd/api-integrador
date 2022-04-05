@@ -22,9 +22,6 @@ const {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      fecha: {
-        type: DataTypes.DATE,
-      },
     }, {
       sequelize,
       timestamps: false,
