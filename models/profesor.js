@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
     },
     unidades_de_carga_max: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
     },
     empresa_donde_trabaja: {
       type: DataTypes.STRING,
