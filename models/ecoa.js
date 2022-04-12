@@ -11,7 +11,7 @@ const {
        */
       static associate(models) {
         // define association here
-        this.belongsTo(models.MateriaImpartida, {as: 'MateriaImpartida'});
+        this.belongsTo(models.materia_impartida, {as: 'materia_impartida'});
       }
     }
     ECOA.init({
@@ -25,7 +25,7 @@ const {
         type: DataTypes.DATE,
       },
       calificaion: {
-        type: DataTypes.INT,
+        type: DataTypes.INTEGER,
       },
     }, {
       sequelize,

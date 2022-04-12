@@ -11,7 +11,7 @@ const {
        */
       static associate(models) {
         // define association here
-        this.belongsTo(models.Profesor, {as: 'Profesor'});
+        this.belongsTo(models.profesor, {as: 'profesor'});
       }
     }
     GradoAcademico.init({
