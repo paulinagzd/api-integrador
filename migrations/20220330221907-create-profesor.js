@@ -22,12 +22,12 @@ module.exports = {
       telefono: {
         type: Sequelize.STRING,
       },
-      // estatus_interno: {
-      //   type: Sequelize.STRING, // ENUM
-      // },
-      // tipo: {
-      //   type: Sequelize.STRING, // ENUM
-      // },
+      estatus_interno: {
+        type: Sequelize.ENUM('activo', 'inactivo', 'enContratacion', 'stand-by', 'rechazado'),
+      },
+      tipo: {
+        type: Sequelize.ENUM('planta', 'plantaInterna', 'lecture', 'catedra', 'pensionado', 'm40', 'director', 'investigador', 'otroCampus'),
+      },
       clase_en_ingles: {
         type: Sequelize.BOOLEAN,
       },
