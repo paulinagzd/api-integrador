@@ -25,7 +25,7 @@ const {
         type: DataTypes.DATE,
       },
       calificaion: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
     }, {
       sequelize,
