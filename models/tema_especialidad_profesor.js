@@ -11,8 +11,8 @@ const {
        */
       static associate(models) {
         // define association here
-        this.belongsTo(models.Profesor, {as:'Profesor'});
-        this.belongsTo(models.TemaEspecialidad,{as:'TemaEspecialidad'});
+        this.belongsTo(models.profesor, {as:'profesor'});
+        this.belongsTo(models.tema_especialidad,{as:'tema_especialidad'});
       }
     }
     TemaEspecialidadProfesor.init({

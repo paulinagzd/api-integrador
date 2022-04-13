@@ -11,7 +11,7 @@ const {
        */
       static associate(models) {
         // define association here
-        this.belongsTo(models.Materia, {as: 'Materia'});
+        this.belongsTo(models.materia, {as: 'materia'});
       }
     }
     MaestriaAceptada.init({
