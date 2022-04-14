@@ -11,7 +11,11 @@ const {
        */
       static associate(models) {
         // define association here
-        this.belongsTo(models.materia_impartida, {as: 'materia_impartida'});
+        this.belongsTo(models.materia_impartida, {
+          foreignKey: {
+            name: 'id_materia_impartida'
+          }
+        });
       }
     }
     ECOA.init({

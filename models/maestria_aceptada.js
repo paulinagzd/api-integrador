@@ -11,7 +11,11 @@ const {
        */
       static associate(models) {
         // define association here
-        this.belongsTo(models.materia, {as: 'materia'});
+        this.belongsTo(models.materia, {
+          foreignKey: {
+            name: 'id_materia'
+          }
+        });
       }
     }
     MaestriaAceptada.init({
