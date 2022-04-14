@@ -1,11 +1,10 @@
 const Sequelize = require('sequelize');
-const { materia } = require('../models');
+const { tema_especialidad } = require('../models');
 
 module.exports = {
   create(req, res) {
-    return materia
+    return tema_especialidad
       .create({
-        codigo: req.body.codigo,
         nombre: req.body.nombre,
       })
       .then((p) => res.status(200).send(p))
@@ -13,15 +12,15 @@ module.exports = {
   },
 
   list(_, res) {
-    return materia.findAll({})
+    return tema_especialidad.findAll({})
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
 
   find(req, res) {
-    return materia.findAll({
+    return tema_especialidad.findAll({
       where: {
-        codigo: req.params.codigo,
+        id: req.params.id,
       },
     })
       .then((p) => res.status(200).send(p))

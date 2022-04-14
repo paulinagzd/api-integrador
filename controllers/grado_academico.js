@@ -5,8 +5,8 @@ module.exports = {
   create(req, res) {
     return grado_academico
       .create({
-        id: req.body.id,
         nombre: req.body.nombre,
+        id_profesor: req.body.id_profesor,
       })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));

@@ -1,27 +1,26 @@
 const Sequelize = require('sequelize');
-const { materia } = require('../models');
+const { ecoa } = require('../models');
 
 module.exports = {
   create(req, res) {
-    return materia
+    return ecoa
       .create({
-        codigo: req.body.codigo,
-        nombre: req.body.nombre,
+        fecha: req.body.fecha,
       })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
 
   list(_, res) {
-    return materia.findAll({})
+    return ecoa.findAll({})
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
 
   find(req, res) {
-    return materia.findAll({
+    return ecoa.findAll({
       where: {
-        codigo: req.params.codigo,
+        id: req.params.id,
       },
     })
       .then((p) => res.status(200).send(p))

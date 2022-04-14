@@ -11,8 +11,16 @@ const {
        */
       static associate(models) {
         // define association here
-        this.belongsTo(models.materia, {as: 'materia'});
-        this.belongsTo(models.profesor, {as: 'profesor'});
+        this.belongsTo(models.materia, {
+          foreignKey: {
+            name: 'id_materia'
+          }
+        });
+        this.belongsTo(models.profesor, {
+          foreignKey: {
+            name: 'id_profesor'
+          }
+        });
       }
     }
     MateriaImpartida.init({

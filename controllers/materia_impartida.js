@@ -1,27 +1,26 @@
 const Sequelize = require('sequelize');
-const { materia } = require('../models');
+const { materia_impartida } = require('../models');
 
 module.exports = {
   create(req, res) {
-    return materia
+    return materia_impartida
       .create({
-        codigo: req.body.codigo,
-        nombre: req.body.nombre,
+        fecha: req.body.fecha,
       })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
 
   list(_, res) {
-    return materia.findAll({})
+    return materia_impartida.findAll({})
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
 
   find(req, res) {
-    return materia.findAll({
+    return materia_impartida.findAll({
       where: {
-        codigo: req.params.codigo,
+        id: req.params.id,
       },
     })
       .then((p) => res.status(200).send(p))
