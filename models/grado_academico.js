@@ -32,10 +32,10 @@ const {
       tipo_de_grado: {
         type: DataTypes.ENUM('licenciatura', 'maestria', 'doctorado', 'area_sacs', 'carta_de_excepcion'),
       },
-      tipo: {
-        type: DataTypes.ENUM('planta', 'plantaInterna', 'lecture', 'catedra', 'pensionado', 'm40', 'director', 'investigador', 'otroCampus'),
+      institucion: {
+        type: DataTypes.STRING,
       },
-      ubicacion: {
+      lugar_de_emision: {
         type: DataTypes.STRING,
       },
       fecha_de_emision: {

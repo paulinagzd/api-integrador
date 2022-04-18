@@ -6,6 +6,7 @@ module.exports = {
     return maestria_aceptada
       .create({
         nombre: req.body.nombre,
+        id_materia: req.body.id_materia
       })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));

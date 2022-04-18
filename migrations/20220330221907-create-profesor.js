@@ -32,7 +32,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
       },
       unidades_de_carga_max: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       empresa_donde_trabaja: {
         type: Sequelize.STRING,

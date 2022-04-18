@@ -15,10 +15,10 @@ module.exports = {
       tipo_de_grado: {
         type: Sequelize.ENUM('licenciatura', 'maestria', 'doctorado', 'area_sacs', 'carta_de_excepcion'),
       },
-      tipo: {
-        type: Sequelize.ENUM('planta', 'plantaInterna', 'lecture', 'catedra', 'pensionado', 'm40', 'director', 'investigador', 'otroCampus'),
+      institucion: {
+        type: Sequelize.STRING,
       },
-      ubicacion: {
+      lugar_de_emision: {
         type: Sequelize.STRING,
       },
       fecha_de_emision: {
