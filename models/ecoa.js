@@ -28,7 +28,7 @@ const {
       fecha: {
         type: DataTypes.DATE,
       },
-      calificaion: {
+      calificacion: {
         type: DataTypes.FLOAT,
       },
     }, {

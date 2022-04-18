@@ -6,6 +6,7 @@ module.exports = {
     return materia_bloqueada
       .create({
         id_materia: req.body.id_materia,
+        id_profesor: req.body.id_profesor
       })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));

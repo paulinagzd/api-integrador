@@ -44,7 +44,7 @@ const {
         type: DataTypes.ENUM('Tec20', 'Tec21'),
       },
       unidades_de_carga: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       CIP: {
         type: DataTypes.INTEGER,

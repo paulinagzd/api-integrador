@@ -32,7 +32,7 @@ module.exports = {
         type: Sequelize.ENUM('Tec20', 'Tec21'),
       },
       unidades_de_carga: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       CIP: {
         type: Sequelize.INTEGER,

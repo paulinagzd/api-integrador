@@ -20,7 +20,7 @@ module.exports = {
       fecha: {
         type: Sequelize.DATE,
       },
-      calificaion: {
+      calificacion: {
         type: Sequelize.FLOAT,
       },
       createdAt: {

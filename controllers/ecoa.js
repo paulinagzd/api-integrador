@@ -6,6 +6,8 @@ module.exports = {
     return ecoa
       .create({
         fecha: req.body.fecha,
+        calificacion: req.body.calificacion,
+        id_materia_impartida: req.body.id_materia_impartida
       })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));

@@ -6,6 +6,8 @@ module.exports = {
     return materia_impartida
       .create({
         fecha: req.body.fecha,
+        id_materia: req.body.id_materia,
+        id_profesor: req.body.id_profesor
       })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
