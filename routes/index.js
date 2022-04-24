@@ -17,7 +17,7 @@ module.exports = (app) => {
   app.post('/profesor', profesorController.create);
   app.get('/profesor', profesorController.list);
   app.get('/profesor/:nomina', profesorController.find);
-  app.put('/profesor/:nomina', profesorController.update);
+  app.put('/profesor/:nomina', profesorController.set);
 
 
   app.post('/materia', materiaController.create);
