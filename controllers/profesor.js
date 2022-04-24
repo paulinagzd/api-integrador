@@ -62,4 +62,14 @@ module.exports = {
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
+  
+  update(req, res){
+    console.log("updating...")
+    return profesor.update( 
+      {nombre: req.body.nombre},
+      {where: {nomina: req.params.nomina}}
+    )
+    .then((p) => res.status(200).send(p))
+    .catch((error) => res.status(400).send(error));
+  },
 };
