@@ -23,6 +23,7 @@ function validateProfesor(profesor){
   return "";
 }
 
+//TODO: Add validation
 function setFields(prof, body){
   if(body.nombre){
     prof.set(
@@ -78,6 +79,7 @@ function setFields(prof, body){
 
 module.exports = {
   create(req, res) {
+    console.log(req.body);
     valid = validateProfesor(req.body);
     if(valid != ""){
       return res.status(400).send(valid);
@@ -96,8 +98,12 @@ module.exports = {
         empresa_donde_trabaja: req.body.empresa_donde_trabaja,
         notas: req.body.notas
       })
-      .then((p) => res.status(200).send(p))
-      .catch((error) => res.status(400).send(error));
+      .then((p) => {
+        res.status(200).send(p)
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(400).send(error)});
   },
 
   list(_, res) {
@@ -119,7 +125,6 @@ module.exports = {
   async set(req, res){
     console.log("updating...")
     console.log(req.body)
-    console.log(req.body.nombre)
     console.log(req.params.nomina)
     prof = null;
     try{
@@ -133,7 +138,7 @@ module.exports = {
       return res.status(400).send(e);
     }
     if(prof == null){
-      res.status(400).send("could not find professor");
+      return res.status(400).send("could not find professor");
     }
     setFields(prof, req.body);
     return prof.save()
