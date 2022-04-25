@@ -23,8 +23,63 @@ function validateProfesor(profesor){
   return "";
 }
 
+//TODO: Add validation
+function setFields(prof, body){
+  if(body.nombre){
+    prof.set(
+      {nombre: body.nombre}
+    );
+  }
+  if(body.correo_institucional){
+    prof.set(
+      {correo_institucional: body.correo_institucional}
+    );
+  }
+  if(body.correo_personal){
+    prof.set(
+      {correo_personal: body.correo_personal}
+    );
+  }
+  if(body.telefono){
+    prof.set(
+      {telefono: body.telefono}
+    );
+  }
+  if(body.estatus_interno){
+    prof.set(
+      {estatus_interno: body.estatus_interno}
+    );
+  }
+  if(body.tipo){
+    prof.set(
+      {tipo: body.tipo}
+    );
+  }
+  if(body.clase_en_ingles){
+    prof.set(
+      {clase_en_ingles: body.clase_en_ingles}
+    );
+  }
+  if(body.unidades_de_carga_max){
+    prof.set(
+      {unidades_de_carga_max: body.unidades_de_carga_max}
+    );
+  }
+  if(body.empresa_donde_trabaja){
+    prof.set(
+      {empresa_donde_trabaja: body.empresa_donde_trabaja}
+    );
+  }
+  if(body.notas){
+    prof.set(
+      {notas: body.notas}
+    );
+  }
+}
+
 module.exports = {
   create(req, res) {
+    console.log(req.body);
     valid = validateProfesor(req.body);
     if(valid != ""){
       return res.status(400).send(valid);
@@ -43,8 +98,12 @@ module.exports = {
         empresa_donde_trabaja: req.body.empresa_donde_trabaja,
         notas: req.body.notas
       })
-      .then((p) => res.status(200).send(p))
-      .catch((error) => res.status(400).send(error));
+      .then((p) => {
+        res.status(200).send(p)
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(400).send(error)});
   },
 
   list(_, res) {
@@ -61,5 +120,29 @@ module.exports = {
     })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
+  },
+
+  async set(req, res){
+    console.log("updating...")
+    console.log(req.body)
+    console.log(req.params.nomina)
+    prof = null;
+    try{
+      prof = await profesor.findOne({
+        where: {
+          nomina: req.params.nomina,
+        },
+      });
+    }
+    catch(e){
+      return res.status(400).send(e);
+    }
+    if(prof == null){
+      return res.status(400).send("could not find professor");
+    }
+    setFields(prof, req.body);
+    return prof.save()
+    .then((p) => res.status(200).send(p))
+    .catch((error) => res.status(400).send(error));
   },
 };
