@@ -18,37 +18,25 @@ module.exports = (app) => {
   app.get('/profesor', profesorController.list);
   app.get('/profesor/:nomina', profesorController.find);
   app.put('/profesor/:nomina', profesorController.set);
-<<<<<<< HEAD
   app.delete('/profesor/:nomina', profesorController.delete);
-=======
->>>>>>> origin
 
   app.post('/materia', materiaController.create);
   app.get('/materia', materiaController.list);
   app.get('/materia/:codigo', materiaController.find);
   app.put('/materia/:codigo', materiaController.set);
-<<<<<<< HEAD
   app.delete('/materia/:codigo', materiaController.delete);
-=======
->>>>>>> origin
 
   app.post('/grado_academico', gradoAcademicoController.create);
   app.get('/grado_academico', gradoAcademicoController.list);
   app.get('/grado_academico/:id', gradoAcademicoController.find);
   app.put('/grado_academico/:id', gradoAcademicoController.set);
-<<<<<<< HEAD
   app.delete('/grado_academico/:id', gradoAcademicoController.delete);
 
-=======
->>>>>>> origin
 
   app.post('/tema_especialidad', temaEspecialidadController.create);
   app.get('/tema_especialidad', temaEspecialidadController.list);
   app.get('/tema_especialidad/:id', temaEspecialidadController.find);
-<<<<<<< HEAD
   app.delete('/tema_especialidad/:id', temaEspecialidadController.delete);
-=======
->>>>>>> origin
   // No creo que sea necesario un editor de este tipo ya que el único 
   // elemento es el nombre. Más bien se deberá de borrar y agregar uno nuevo.
 
@@ -56,18 +44,12 @@ module.exports = (app) => {
   app.get('/tema_especialidad_profesor', temaEspecialidadProfesorController.list);
   app.get('/tema_especialidad_profesor/:id', temaEspecialidadProfesorController.find);
   app.put('/tema_especialidad_profesor/:id', temaEspecialidadProfesorController.set);
-<<<<<<< HEAD
   app.delete('/tema_especialidad_profesor/:id', temaEspecialidadProfesorController.delete);
-=======
->>>>>>> origin
 
   app.post('/maestria_aceptada', maestriaAceptadaController.create);
   app.get('/maestria_aceptada', maestriaAceptadaController.list);
   app.get('/maestria_aceptada/:id', maestriaAceptadaController.find);
-<<<<<<< HEAD
   app.delete('/maestria_aceptada/:id', maestriaAceptadaController.delete);
-=======
->>>>>>> origin
     // No creo que sea necesario un editor de este tipo ya que el único 
   // elemento es el nombre. Más bien se deberá de borrar y agregar uno nuevo.
 
@@ -75,27 +57,18 @@ module.exports = (app) => {
   app.get('/materia_impartida', materiaImpartidaController.list);
   app.get('/materia_impartida/:id', materiaImpartidaController.find);
   app.put('/materia_impartida/:id', materiaImpartidaController.set);
-<<<<<<< HEAD
   app.delete('/materia_impartida/:id', materiaImpartidaController.delete);
-=======
->>>>>>> origin
 
   app.post('/materia_bloqueada', materiaBloqueadaController.create);
   app.get('/materia_bloqueada', materiaBloqueadaController.list);
   app.get('/materia_bloqueada/:id', materiaBloqueadaController.find);
-<<<<<<< HEAD
   app.delete('/materia_bloqueada/:id', materiaBloqueadaController.delete);
-=======
->>>>>>> origin
   // No es necesaria la edición sólo la eliminación.
 
   app.post('/ecoa', ecoaController.create);
   app.get('/ecoa', ecoaController.list);
   app.get('/ecoa/:id', ecoaController.find);
   app.put('/ecoa/:id', ecoaController.set);
-<<<<<<< HEAD
   app.delete('/ecoa/:id', ecoaController.delete);
-=======
->>>>>>> origin
 
 };
