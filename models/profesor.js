@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     nomina: {
       allowNull: false,
+      unique: true,
       type: DataTypes.STRING,
     },
     nombre: {
