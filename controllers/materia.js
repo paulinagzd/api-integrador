@@ -107,4 +107,20 @@ module.exports = {
     .then((p) => res.status(200).send(p))
     .catch((error) => res.status(400).send(error));
   },
+  async delete(req, res){
+    console.log("deleting...")
+    console.log(req.body)
+    console.log(req.params.codigo)
+    const mat = await materia.findOne({
+      where: { codigo: req.params.codigo },
+    });
+    if(mat){
+      return mat.destroy()
+        .then((p)=> res.status(200).send(p))
+        .catch((error) => res.status(400).send(error));
+    }
+    else{
+      return res.status(400).send("could not find materia");
+    }
+  },
 };

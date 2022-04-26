@@ -27,4 +27,20 @@ module.exports = {
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
+  async delete(req, res){
+    console.log("deleting...")
+    console.log(req.body)
+    console.log(req.params.id)
+    const row = await maestria_aceptada.findOne({
+      where: { id: req.params.id },
+    });
+    if(row){
+      return row.destroy()
+        .then((p)=> res.status(200).send(p))
+        .catch((error) => res.status(400).send(error));
+    }
+    else{
+      return res.status(400).send("could not find maestria_aceptada");
+    }
+  },
 };

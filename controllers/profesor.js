@@ -145,4 +145,21 @@ module.exports = {
     .then((p) => res.status(200).send(p))
     .catch((error) => res.status(400).send(error));
   },
+
+  async delete(req, res){
+    console.log("deleting...")
+    console.log(req.body)
+    console.log(req.params.nomina)
+    const prof = await profesor.findOne({
+      where: { nomina: req.params.nomina },
+    });
+    if(prof){
+      return prof.destroy()
+        .then((p)=> res.status(200).send(p))
+        .catch((error) => res.status(400).send(error));
+    }
+    else{
+      return res.status(400).send("could not find professor");
+    }
+  },
 };
