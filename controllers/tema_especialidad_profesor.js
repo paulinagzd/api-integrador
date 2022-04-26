@@ -28,4 +28,31 @@ module.exports = {
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
+  async set(req, res){
+    console.log("updating...")
+    console.log(req.body)
+    console.log(req.params.id)
+    esp = null;
+    try{
+      esp = await tema_especialidad_profesor.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+    }
+    catch(e){
+      return res.status(400).send(e);
+    }
+    if(esp == null){
+      return res.status(400).send("could not find tema_especialidad_profesor");
+    }
+    if(req.body.nivel){
+      esp.set(
+        {nivel: req.body.nivel}
+      );
+    }
+    return esp.save()
+    .then((p) => res.status(200).send(p))
+    .catch((error) => res.status(400).send(error));
+  },
 };
