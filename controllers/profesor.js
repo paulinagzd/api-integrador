@@ -145,6 +145,7 @@ module.exports = {
     .then((p) => res.status(200).send(p))
     .catch((error) => res.status(400).send(error));
   },
+<<<<<<< HEAD
 
   async delete(req, res){
     console.log("deleting...")
@@ -162,4 +163,6 @@ module.exports = {
       return res.status(400).send("could not find professor");
     }
   },
+=======
+>>>>>>> origin
 };
