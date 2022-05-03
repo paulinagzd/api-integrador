@@ -11,6 +11,7 @@ module.exports = {
       codigo: {
         allowNull: false,
         type: Sequelize.STRING,
+        unique: true,
       },
       nombre: {
         allowNull: false,

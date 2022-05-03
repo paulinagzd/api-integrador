@@ -22,6 +22,7 @@ const {
       },
       codigo: {
         allowNull: false,
+        unique: true,
         type: DataTypes.STRING,
       },
       nombre: {

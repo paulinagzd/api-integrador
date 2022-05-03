@@ -9,6 +9,7 @@ module.exports = {
       },
       nomina: {
         type: Sequelize.STRING,
+        unique: true,
       },
       nombre: {
         type: Sequelize.STRING,
