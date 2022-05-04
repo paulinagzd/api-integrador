@@ -115,7 +115,18 @@ module.exports = {
   find(req, res) {
     return profesor.findAll({
       where: {
-        nomina: req.params.nomina,
+        nomina: req.body.nomina,
+      },
+    })
+      .then((p) => res.status(200).send(p))
+      .catch((error) => res.status(400).send(error));
+  },
+
+  findByTipoDeContrato(req, res) {
+    console.log("entering...")
+    return profesor.findAll({
+      where: {
+        tipo: req.params.tipo,
       },
     })
       .then((p) => res.status(200).send(p))
