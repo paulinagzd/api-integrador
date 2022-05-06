@@ -1,13 +1,41 @@
 const Sequelize = require('sequelize');
-const { tema_especialidad_profesor } = require('../models');
+const { tema_especialidad_profesor, profesor, tema_especialidad } = require('../models');
 
 module.exports = {
-  create(req, res) {
+  async create(req, res) {
+    try{
+      prof = await profesor.findOne({
+        where: {
+          nomina: req.body.nomina,
+        },
+      });
+    }
+    catch(e){
+      console.log(e);
+      return res.status(400).send(e);
+    }
+    if(prof == null){
+      return res.status(400).send("could not find profesor");
+    }
+    try{
+      tem = await tema_especialidad.findOne({
+        where: {
+          nombre: req.body.nombre,
+        },
+      });
+    }
+    catch(e){
+      console.log(e);
+      return res.status(400).send(e);
+    }
+    if(tem == null){
+      return tem.status(400).send("could not find tema de especialidad");
+    }
     return tema_especialidad_profesor
       .create({
         nivel: req.body.nivel,
-        id_tema_especialidad: req.body.id_tema_especialidad,
-        id_profesor: req.body.id_profesor,
+        id_tema_especialidad: tem.dataValues.id,
+        id_profesor: prof.dataValues.id,
       })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));

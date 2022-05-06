@@ -1,8 +1,22 @@
 const Sequelize = require('sequelize');
-const { ecoa } = require('../models');
+const { ecoa, materia_impartida } = require('../models');
 
 module.exports = {
-  create(req, res) {
+  async create(req, res) {
+    try{
+      mati = await materia_impartida.findOne({
+        where: {
+          id: req.body.nomina,
+        },
+      });
+    }
+    catch(e){
+      console.log(e);
+      return res.status(400).send(e);
+    }
+    if(prof == null){
+      return res.status(400).send("could not find profesor");
+    }
     return ecoa
       .create({
         fecha: req.body.fecha,
