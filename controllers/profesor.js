@@ -115,7 +115,7 @@ module.exports = {
   find(req, res) {
     return profesor.findAll({
       where: {
-        nomina: req.body.nomina,
+        nomina: req.params.nomina,
       },
     })
       .then((p) => res.status(200).send(p))
