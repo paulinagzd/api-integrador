@@ -17,6 +17,7 @@ module.exports = (app) => {
   app.post('/profesor', profesorController.create);
   app.get('/profesor', profesorController.list);
   app.get('/profesor/:nomina', profesorController.find);
+  app.get('/profesor/porContrato/:tipo', profesorController.findByTipoDeContrato);
   app.put('/profesor/:nomina', profesorController.set);
   app.delete('/profesor/:nomina', profesorController.delete);
 
