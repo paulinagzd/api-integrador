@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const { tema_especialidad_profesor } = require('../models');
+const {profesor} = require('../models')
 
 module.exports = {
   create(req, res) {
@@ -27,6 +28,18 @@ module.exports = {
     })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
+  },
+  findProfesoresWithEspecialidad(req, res){
+    return tema_especialidad_profesor.findAll({
+      where: {
+        id_tema_especialidad: req.params.temaId,
+      },
+      include: profesor,
+    })
+    .then((p)=> res.status(200).send(p))
+    .catch((error)=> {
+      console.log(error);
+      res.status(400).send(error);});
   },
   async set(req, res){
     console.log("updating...")
