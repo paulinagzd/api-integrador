@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const { materia_impartida } = require('../models');
+const {profesor} = require('../models');
+const {materia} = require('../models');
 
 module.exports = {
   create(req, res) {
@@ -27,6 +29,30 @@ module.exports = {
     })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
+  },
+  findProfesoresWithMateria(req, res){
+    return materia_impartida.findAll({
+      where: {
+        id_materia: req.params.materiaId,
+      },
+      include: profesor,
+    })
+    .then((p)=> res.status(200).send(p))
+    .catch((error)=> {
+      console.log(error);
+      res.status(400).send(error);});
+  },
+  findMateriasWithProfesor(req, res){
+    return materia_impartida.findAll({
+      where: {
+        id_profesor: req.params.profesorId,
+      },
+      include: materia,
+    })
+    .then((p)=> res.status(200).send(p))
+    .catch((error)=> {
+      console.log(error);
+      res.status(400).send(error);});
   },
   async set(req, res){
     console.log("updating...")
