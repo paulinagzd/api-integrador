@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const { profesor } = require('../models');
+const materia_impartida = require('./materia_impartida');
 
 function validateProfesor(profesor){
   if(profesor.nomina && profesor.nomina.length != 9){
@@ -116,6 +117,16 @@ module.exports = {
     return profesor.findAll({
       where: {
         nomina: req.params.nomina,
+      },
+    })
+      .then((p) => res.status(200).send(p))
+      .catch((error) => res.status(400).send(error));
+  },
+
+  findById(req, res) {
+    return profesor.findAll({
+      where: {
+        id: req.params.id,
       },
     })
       .then((p) => res.status(200).send(p))

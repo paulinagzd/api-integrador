@@ -33,7 +33,7 @@ module.exports = {
   findProfesoresWithMateria(req, res){
     return materia_impartida.findAll({
       where: {
-        id_materia: req.params.materiaId,
+        id_materia: req.params.id,
       },
       include: profesor,
     })
@@ -45,7 +45,7 @@ module.exports = {
   findMateriasWithProfesor(req, res){
     return materia_impartida.findAll({
       where: {
-        id_profesor: req.params.profesorId,
+        id_profesor: req.params.id,
       },
       include: materia,
     })

@@ -84,6 +84,17 @@ module.exports = {
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
+
+  findById(req, res) {
+    return materia.findAll({
+      where: {
+        id: req.params.id,
+      },
+    })
+      .then((p) => res.status(200).send(p))
+      .catch((error) => res.status(400).send(error));
+  },
+
   async set(req, res){
     console.log("updating...")
     console.log(req.body)
