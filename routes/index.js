@@ -17,6 +17,7 @@ module.exports = (app) => {
   app.post('/profesor', profesorController.create);
   app.get('/profesor', profesorController.list);
   app.get('/profesor/:nomina', profesorController.find);
+  app.get('/profesor/id/:id', profesorController.findById);
   app.get('/profesor/porContrato/:tipo', profesorController.findByTipoDeContrato);
   app.put('/profesor/:nomina', profesorController.set);
   app.delete('/profesor/:nomina', profesorController.delete);
@@ -24,6 +25,7 @@ module.exports = (app) => {
   app.post('/materia', materiaController.create);
   app.get('/materia', materiaController.list);
   app.get('/materia/:codigo', materiaController.find);
+  app.get('/materia/id/:id', materiaController.findById);
   app.put('/materia/:codigo', materiaController.set);
   app.delete('/materia/:codigo', materiaController.delete);
 

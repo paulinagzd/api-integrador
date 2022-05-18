@@ -74,11 +74,19 @@ module.exports = {
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
-
   find(req, res) {
     return materia.findAll({
       where: {
         codigo: req.params.codigo,
+      },
+    })
+      .then((p) => res.status(200).send(p))
+      .catch((error) => res.status(400).send(error));
+  },
+  findById(req, res) {
+    return materia.findAll({
+      where: {
+        id: req.params.id,
       },
     })
       .then((p) => res.status(200).send(p))
