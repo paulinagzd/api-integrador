@@ -47,8 +47,8 @@ const {
       unidades_de_carga: {
         type: DataTypes.FLOAT,
       },
-      CIP: {
-        type: DataTypes.INTEGER,
+      CIPS: {
+        type: DataTypes.STRING,
       },
       notas: {
         type: DataTypes.STRING,

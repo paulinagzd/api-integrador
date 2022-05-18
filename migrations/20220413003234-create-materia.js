@@ -35,8 +35,8 @@ module.exports = {
       unidades_de_carga: {
         type: Sequelize.FLOAT,
       },
-      CIP: {
-        type: Sequelize.INTEGER,
+      CIPS: {
+        type: Sequelize.STRING,
       },
       notas: {
         type: Sequelize.STRING,

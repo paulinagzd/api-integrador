@@ -62,7 +62,7 @@ module.exports = {
         duracion_en_semanas: req.body.duracion_en_semanas,
         plan: req.body.plan,
         unidades_de_carga: req.body.unidades_de_carga,
-        CIP: req.body.CIP,
+        CIPS: req.body.CIPS,
         notas: req.body.notas
       })
       .then((p) => res.status(200).send(p))
