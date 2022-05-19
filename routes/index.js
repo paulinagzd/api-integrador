@@ -7,8 +7,6 @@ const temaEspecialidadProfesorController = require('../controllers/tema_especial
 const maestriaAceptadaController = require('../controllers/maestria_aceptada');
 const materiaImpartidaController = require('../controllers/materia_impartida');
 const materiaBloqueadaController = require('../controllers/materia_bloqueada');
-const ecoaController = require('../controllers/ecoa');
-
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -70,11 +68,5 @@ module.exports = (app) => {
   app.get('/materia_bloqueada/:id', materiaBloqueadaController.find);
   app.delete('/materia_bloqueada/:id', materiaBloqueadaController.delete);
   // No es necesaria la edición sólo la eliminación.
-
-  app.post('/ecoa', ecoaController.create);
-  app.get('/ecoa', ecoaController.list);
-  app.get('/ecoa/:id', ecoaController.find);
-  app.put('/ecoa/:id', ecoaController.set);
-  app.delete('/ecoa/:id', ecoaController.delete);
 
 };

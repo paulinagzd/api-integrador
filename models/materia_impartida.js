@@ -33,6 +33,9 @@ const {
       fecha: {
         type: DataTypes.DATE,
       },
+      calificacion_ecoa: {
+        type: DataTypes.FLOAT,
+      },
     }, {
       sequelize,
       timestamps: false,

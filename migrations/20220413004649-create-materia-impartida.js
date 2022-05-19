@@ -11,6 +11,9 @@ module.exports = {
       fecha: {
         type: Sequelize.DATE,
       },
+      calificacion_ecoa: {
+        type: Sequelize.FLOAT,
+      },
       id_materia: {
         type: Sequelize.INTEGER,
         references: {
