@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const { profesor } = require('../models');
-const materia_impartida = require('./materia_impartida');
 
 function validateProfesor(profesor){
   if(profesor.nomina && profesor.nomina.length != 9){

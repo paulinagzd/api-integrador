@@ -17,12 +17,12 @@ const {
       id: {
         allowNull: false,
         autoIncrement: true,
+        primaryKey: true,
         type: DataTypes.INTEGER,
       },
       codigo: {
         allowNull: false,
         unique: true,
-        primaryKey: true,
         type: DataTypes.STRING,
       },
       nombre: {
