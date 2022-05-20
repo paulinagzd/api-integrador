@@ -3,7 +3,6 @@ const { materia_impartida } = require('../models');
 const {profesor} = require('../models');
 const {materia} = require('../models');
 
-
 module.exports = {
   async create(req, res) {
     try{
