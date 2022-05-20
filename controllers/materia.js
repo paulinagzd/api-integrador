@@ -62,7 +62,7 @@ module.exports = {
         duracion_en_semanas: req.body.duracion_en_semanas,
         plan: req.body.plan,
         unidades_de_carga: req.body.unidades_de_carga,
-        CIP: req.body.CIP,
+        CIPS: req.body.CIPS,
         notas: req.body.notas
       })
       .then((p) => res.status(200).send(p))
@@ -74,11 +74,19 @@ module.exports = {
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
-
   find(req, res) {
     return materia.findAll({
       where: {
         codigo: req.params.codigo,
+      },
+    })
+      .then((p) => res.status(200).send(p))
+      .catch((error) => res.status(400).send(error));
+  },
+  findById(req, res) {
+    return materia.findAll({
+      where: {
+        id: req.params.id,
       },
     })
       .then((p) => res.status(200).send(p))

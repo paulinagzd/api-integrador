@@ -17,12 +17,15 @@ module.exports = (app) => {
   app.post('/profesor', profesorController.create);
   app.get('/profesor', profesorController.list);
   app.get('/profesor/:nomina', profesorController.find);
+  app.get('/profesor/id/:id', profesorController.findById);
+  app.get('/profesor/porContrato/:tipo', profesorController.findByTipoDeContrato);
   app.put('/profesor/:nomina', profesorController.set);
   app.delete('/profesor/:nomina', profesorController.delete);
 
   app.post('/materia', materiaController.create);
   app.get('/materia', materiaController.list);
   app.get('/materia/:codigo', materiaController.find);
+  app.get('/materia/id/:id', materiaController.findById);
   app.put('/materia/:codigo', materiaController.set);
   app.delete('/materia/:codigo', materiaController.delete);
 
@@ -43,6 +46,7 @@ module.exports = (app) => {
   app.post('/tema_especialidad_profesor', temaEspecialidadProfesorController.create);
   app.get('/tema_especialidad_profesor', temaEspecialidadProfesorController.list);
   app.get('/tema_especialidad_profesor/:id', temaEspecialidadProfesorController.find);
+  app.get('/tema_especialidad_profesor/tema/:temaId', temaEspecialidadProfesorController.findProfesoresWithEspecialidad);
   app.put('/tema_especialidad_profesor/:id', temaEspecialidadProfesorController.set);
   app.delete('/tema_especialidad_profesor/:id', temaEspecialidadProfesorController.delete);
 
@@ -56,6 +60,8 @@ module.exports = (app) => {
   app.post('/materia_impartida', materiaImpartidaController.create);
   app.get('/materia_impartida', materiaImpartidaController.list);
   app.get('/materia_impartida/:id', materiaImpartidaController.find);
+  app.get('/materia_impartida/profesor/:profesorId', materiaImpartidaController.findMateriasWithProfesor);
+  app.get('/materia_impartida/materia/:materiaId', materiaImpartidaController.findProfesoresWithMateria);
   app.put('/materia_impartida/:id', materiaImpartidaController.set);
   app.delete('/materia_impartida/:id', materiaImpartidaController.delete);
 
