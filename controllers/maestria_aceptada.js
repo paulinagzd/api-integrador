@@ -1,12 +1,26 @@
 const Sequelize = require('sequelize');
-const { maestria_aceptada } = require('../models');
+const { maestria_aceptada, materia } = require('../models');
 
 module.exports = {
-  create(req, res) {
+  async create(req, res) {
+    try{
+      mat = await materia.findOne({
+        where: {
+          codigo: req.body.codigo,
+        },
+      });
+    }
+    catch(e){
+      console.log(e);
+      return res.status(400).send(e);
+    }
+    if(mat == null){
+      return res.status(400).send("could not find materia");
+    }
     return maestria_aceptada
       .create({
         nombre: req.body.nombre,
-        id_materia: req.body.id_materia
+        id_materia: mat.dataValues.id,
       })
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
