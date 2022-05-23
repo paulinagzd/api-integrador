@@ -37,6 +37,7 @@ module.exports = {
     return materia_impartida
       .create({
         fecha: req.body.fecha,
+        calificacion_ecoa: req.body.calificacion_ecoa,
         id_materia: mat.dataValues.id,
         id_profesor: prof.dataValues.id
       })
@@ -104,6 +105,11 @@ module.exports = {
     if(req.body.fecha){
       mat_imp.set(
         {fecha: req.body.fecha}
+      );
+    }
+    if(req.body.calificacion_ecoa){
+      mat_imp.set(
+        {calificacion_ecoa: req.body.calificacion_ecoa}
       );
     }
     return mat_imp.save()
