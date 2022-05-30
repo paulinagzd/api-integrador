@@ -7,6 +7,7 @@ const temaEspecialidadProfesorController = require('../controllers/tema_especial
 const maestriaAceptadaController = require('../controllers/maestria_aceptada');
 const materiaImpartidaController = require('../controllers/materia_impartida');
 const materiaBloqueadaController = require('../controllers/materia_bloqueada');
+const userController = require('../controllers/users');
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -69,4 +70,5 @@ module.exports = (app) => {
   app.delete('/materia_bloqueada/:id', materiaBloqueadaController.delete);
   // No es necesaria la edición sólo la eliminación.
 
+  app.post('/user/register', userController.create)
 };
