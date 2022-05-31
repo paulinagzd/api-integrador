@@ -1,36 +1,36 @@
+/* eslint-disable camelcase */
 const Sequelize = require('sequelize');
 const { tema_especialidad_profesor } = require('../models');
-const {profesor} = require('../models')
+const { profesor } = require('../models');
+const { tema_especialidad } = require('../models');
 
 module.exports = {
   async create(req, res) {
-    try{
+    try {
       prof = await profesor.findOne({
         where: {
           nomina: req.body.nomina,
         },
       });
-    }
-    catch(e){
+    } catch (e) {
       console.log(e);
       return res.status(400).send(e);
     }
-    if(prof == null){
-      return res.status(400).send("could not find profesor");
+    if (prof == null) {
+      return res.status(400).send('could not find profesor');
     }
-    try{
+    try {
       tem = await tema_especialidad.findOne({
         where: {
           nombre: req.body.nombre,
         },
       });
-    }
-    catch(e){
+    } catch (e) {
       console.log(e);
       return res.status(400).send(e);
     }
-    if(tem == null){
-      return tem.status(400).send("could not find tema de especialidad");
+    if (tem == null) {
+      return tem.status(400).send('could not find tema de especialidad');
     }
     return tema_especialidad_profesor
       .create({
@@ -57,59 +57,71 @@ module.exports = {
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
-  findProfesoresWithEspecialidad(req, res){
+
+  findEspecialidadByProfesor(req, res) {
+    return tema_especialidad_profesor.findAll({
+      where: {
+        id_profesor: req.params.profeId,
+      },
+      include: tema_especialidad,
+    }).then((p) => res.status(200).send(p)).catch((error) => {
+      console.log(error);
+      res.status(400).send(error);
+    });
+  },
+
+  findProfesoresWithEspecialidad(req, res) {
     return tema_especialidad_profesor.findAll({
       where: {
         id_tema_especialidad: req.params.temaId,
       },
       include: profesor,
     })
-    .then((p)=> res.status(200).send(p))
-    .catch((error)=> {
-      console.log(error);
-      res.status(400).send(error);});
+      .then((p) => res.status(200).send(p))
+      .catch((error) => {
+        console.log(error);
+        res.status(400).send(error);
+      });
   },
-  async set(req, res){
-    console.log("updating...")
-    console.log(req.body)
-    console.log(req.params.id)
+  async set(req, res) {
+    console.log('updating...');
+    console.log(req.body);
+    console.log(req.params.id);
     esp = null;
-    try{
+    try {
       esp = await tema_especialidad_profesor.findOne({
         where: {
           id: req.params.id,
         },
       });
-    }
-    catch(e){
+    } catch (e) {
       return res.status(400).send(e);
     }
-    if(esp == null){
-      return res.status(400).send("could not find tema_especialidad_profesor");
+    if (esp == null) {
+      return res.status(400).send('could not find tema_especialidad_profesor');
     }
-    if(req.body.nivel){
+    if (req.body.nivel) {
       esp.set(
-        {nivel: req.body.nivel}
+        { nivel: req.body.nivel },
       );
     }
     return esp.save()
-    .then((p) => res.status(200).send(p))
-    .catch((error) => res.status(400).send(error));
+      .then((p) => res.status(200).send(p))
+      .catch((error) => res.status(400).send(error));
   },
-  async delete(req, res){
-    console.log("deleting...")
-    console.log(req.body)
-    console.log(req.params.id)
+  async delete(req, res) {
+    console.log('deleting...');
+    console.log(req.body);
+    console.log(req.params.id);
     const row = await tema_especialidad_profesor.findOne({
       where: { id: req.params.id },
     });
-    if(row){
+    if (row) {
       return row.destroy()
-        .then((p)=> res.status(200).send(p))
+        .then((p) => res.status(200).send(p))
         .catch((error) => res.status(400).send(error));
     }
-    else{
-      return res.status(400).send("could not find tema_especialidad_profesor");
-    }
+
+    return res.status(400).send('could not find tema_especialidad_profesor');
   },
 };
