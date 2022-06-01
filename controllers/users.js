@@ -1,4 +1,3 @@
-
 const jwt = require('jsonwebtoken');
 const Sequelize = require('sequelize');
 var { User } = require('../models');
@@ -26,15 +25,12 @@ function isValidPassword(password) {
     async create(req, res) {
         bcrypt.hash(req.body.password, 5)
         .then(async hash => {
-                console.log("hash");
-                console.log(hash);
                 if (!isValidPassword(req.body.password)) {
                     return res.json({status: 'error', message: 'Password must be 8 or more characters.'});
                   }
                   if (!isValidEmail(req.body.email)) {
                     return res.json({status: 'error', message: 'Email address not formed correctly.'});
                   }
-                
                   try {
                     var user = await User.create({
                       first_name: req.body.first_name,
@@ -49,9 +45,6 @@ function isValidPassword(password) {
                   }
                   if (user) {
                     bcrypt.compare(req.body.password, user.password, (err, result) => {
-                        console.log(req.body.password);
-                        console.log(user.password);
-                        console.log(result);
                         if (err) {
                             return res.json({status: 'error', message: 'Could not excrypt password'});
                         }
@@ -63,7 +56,6 @@ function isValidPassword(password) {
                   }
         })
         .catch(err => {
-                console.log("err");
                 res.statusMessage = "Something went wrong with the DB. Try again later.";
                 return res.status(500).end();
         });
@@ -74,18 +66,46 @@ function isValidPassword(password) {
             res.json({status: 'error', message: 'no user found'});
         }
         bcrypt.compare(req.body.password, user.password, (err, result) => {
-            console.log(req.body.password);
-            console.log(user.password);
-            console.log(result);
             if (err) {
                 return res.json({status: 'error', message: 'wrong password'});
             }
             if(result){
                 // authentication successful
-                const token = jwt.sign({ sub: user.email }, "secret", { expiresIn: '7d' });
+                const token = jwt.sign({ sub: omitHash(user.get())}, "secret", { expiresIn: '5m' });
                 return res.status(200).send({ ...omitHash(user.get()), token });
             }
             return res.json({status: 'error', message: 'wrong password'});
         })
-    }
+    },
+    async set(req, res){
+        bcrypt.hash(req.body.password, 5)
+        .then(async hash => {
+                if (!isValidPassword(req.body.password)) {
+                    return res.json({status: 'error', message: 'Password must be 8 or more characters.'});
+                  }
+                  if (!isValidEmail(req.body.email)) {
+                    return res.json({status: 'error', message: 'Email address not formed correctly.'});
+                  }
+                
+                  try {
+                    var user = await User.findOne({
+                      where: {
+                          email: req.body.email,
+                        },
+                    });
+                  } catch (err) {
+                    return res.json({status: 'error', message: 'Could not find User'});
+                  }
+                  if (user) {
+                    user.set({password: hash});
+                    return user.save()
+                    .then((p) => res.status(200).send(omitHash(user.get())))
+                    .catch((error) => res.status(400).send(error));
+                }
+        })
+        .catch(err => {
+                res.statusMessage = "Something went wrong with the DB. Try again later.";
+                return res.status(500).end();
+        });
+    },
   }  
