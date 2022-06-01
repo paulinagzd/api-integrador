@@ -25,15 +25,16 @@ app.get('*', (req, res) => res.status(200).send({
 
 // session stuff
 var connection = mysql.createConnection({
-  host: "localhost",
-  user:"root",
-  password: "gloria19",
-  database: "db_dev"
+  host: process.env.SESSIONSDB_HOST,
+  port: process.env.SESSIONSDB_PORT,
+  user: process.env.SESSIONSDB_USER,
+  password: process.env.SESSIONSDB_PASS,
+  database: process.env.SESSIONSDB_DB
 });
 
 var sessionStore = new MySQLStore({
-  checkExpirationInterval: 900000,
-  expiration: 86400000
+  checkExpirationInterval: parseInt(process.env.SESSIONSDB_CHECK_EXP_INTERVAL, 10),
+  expiration: parseInt(process.env.SESSIONSDB_EXPIRATION, 10)
 }, connection);
 
 console.log(sessionStore);
@@ -51,6 +52,14 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, {id: user.id, email: user.email, role: user.role});
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, {id: user.id, email: user.email, role: user.role});
+});
 
 
 const port = parseInt(process.env.PORT, 10) || 8000;
