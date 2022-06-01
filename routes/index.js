@@ -71,4 +71,5 @@ module.exports = (app) => {
   // No es necesaria la edición sólo la eliminación.
 
   app.post('/user/register', userController.create)
+  app.get('/user/login', userController.authenticate)
 };

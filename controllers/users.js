@@ -1,39 +1,7 @@
-var crypto = require('crypto');
-var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
-var User = require('../models').User;
+const jwt = require('jsonwebtoken');
+const Sequelize = require('sequelize');
+var { User } = require('../models');
 var bcrypt = require('bcrypt');
-
-passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-  },
-  async function(email, password, done) {
-      console.log("here");
-    var user = await User.findOne(
-      { where: {
-          email: email
-        }
-      });
-       console.log("great job");
-    if (user == null) {
-        console.log("ja")
-      return done(null, false, { message: 'Incorrect email.' });
-    }
-    bcrypt.compare(password, user.password, (err, result) => {
-        console.log(password);
-        console.log(user.password);
-        console.log(result);
-        if (err) {
-            return done(null, false, { message: 'Incorrect password.' });
-        }
-        if(result){
-            return done(null, user);
-        }
-        return done(null, false, { message: 'Incorrect password.' });
-    })
-  }
-));
 
 function isValidPassword(password) {
     if (password.length >= 8) {
@@ -48,8 +16,13 @@ function isValidPassword(password) {
     return re.test(String(email).toLowerCase());
   }
 
+  function omitHash(user) {
+    const { password, ...userWithoutHash } = user;
+    return userWithoutHash;
+}
+
   module.exports = {
-    async create(req, res, next) {
+    async create(req, res) {
         bcrypt.hash(req.body.password, 5)
         .then(async hash => {
                 console.log("hash");
@@ -68,22 +41,24 @@ function isValidPassword(password) {
                       email: req.body.email,
                       role: "user",
                       password: hash,
-                      salt: "ha",
+                      last_login: Date.now(),
                     });
                   } catch (err) {
                     return res.json({status: 'error', message: 'Email address already exists.'});
                   }
                   if (user) {
-                    passport.authenticate('local', function(err, user, info) {
-                      if (err) { return next(err); }
-                      if (!user) {
-                        return res.json({status: 'error', message: info.message});
-                      }
-                      req.logIn(user, function(err) {
-                        if (err) { return next(err); }
-                        return res.json({status: 'ok'});
-                      });
-                    })(req, res, next);
+                    bcrypt.compare(req.body.password, user.password, (err, result) => {
+                        console.log(req.body.password);
+                        console.log(user.password);
+                        console.log(result);
+                        if (err) {
+                            return res.json({status: 'error', message: 'Could not excrypt password'});
+                        }
+                        if(result){
+                            return res.status(200).send(user);
+                        }
+                        return res.json({status: 'error', message: 'Could not excrypt password'});
+                    })
                   }
         })
         .catch(err => {
@@ -92,4 +67,24 @@ function isValidPassword(password) {
                 return res.status(500).end();
         });
     },
+    async authenticate(req, res) {
+        const user = await User.findOne({ where: { email: req.body.email } });
+        if (!user){
+            res.json({status: 'error', message: 'no user found'});
+        }
+        bcrypt.compare(req.body.password, user.password, (err, result) => {
+            console.log(req.body.password);
+            console.log(user.password);
+            console.log(result);
+            if (err) {
+                return res.json({status: 'error', message: 'wrong password'});
+            }
+            if(result){
+                // authentication successful
+                const token = jwt.sign({ sub: user.email }, "secret", { expiresIn: '7d' });
+                return res.status(200).send({ ...omitHash(user.get()), token });
+            }
+            return res.json({status: 'error', message: 'wrong password'});
+        })
+    }
   }  
