@@ -20,9 +20,6 @@ module.exports = {
         role: {
           type: Sequelize.ENUM('admin', 'user')
         },
-        salt: {
-          type: Sequelize.STRING
-        },
         password: {
           type: Sequelize.STRING
         },
