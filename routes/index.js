@@ -66,6 +66,7 @@ module.exports = (app) => {
 
   app.post('/materia_bloqueada', materiaBloqueadaController.create);
   app.get('/materia_bloqueada', materiaBloqueadaController.list);
+  app.get('/materia_bloqueada/profesor/:profesorId', materiaBloqueadaController.findMateriasWithProfesor);
   app.get('/materia_bloqueada/:id', materiaBloqueadaController.find);
   app.delete('/materia_bloqueada/:id', materiaBloqueadaController.delete);
   // No es necesaria la edición sólo la eliminación.
