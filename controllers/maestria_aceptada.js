@@ -1,21 +1,22 @@
+/* eslint-disable camelcase */
 const Sequelize = require('sequelize');
 const { maestria_aceptada, materia } = require('../models');
 
 module.exports = {
   async create(req, res) {
-    try{
+    // let mat;
+    try {
       mat = await materia.findOne({
         where: {
           codigo: req.body.codigo,
         },
       });
-    }
-    catch(e){
+    } catch (e) {
       console.log(e);
       return res.status(400).send(e);
     }
-    if(mat == null){
-      return res.status(400).send("could not find materia");
+    if (mat == null) {
+      return res.status(400).send('could not find materia');
     }
     return maestria_aceptada
       .create({
@@ -41,20 +42,19 @@ module.exports = {
       .then((p) => res.status(200).send(p))
       .catch((error) => res.status(400).send(error));
   },
-  async delete(req, res){
-    console.log("deleting...")
-    console.log(req.body)
-    console.log(req.params.id)
+  async delete(req, res) {
+    console.log('deleting...');
+    console.log(req.body);
+    console.log(req.params.id);
     const row = await maestria_aceptada.findOne({
       where: { id: req.params.id },
     });
-    if(row){
+    if (row) {
       return row.destroy()
-        .then((p)=> res.status(200).send(p))
+        .then((p) => res.status(200).send(p))
         .catch((error) => res.status(400).send(error));
     }
-    else{
-      return res.status(400).send("could not find maestria_aceptada");
-    }
+
+    return res.status(400).send('could not find maestria_aceptada');
   },
 };
