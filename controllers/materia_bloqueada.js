@@ -49,7 +49,7 @@ module.exports = {
   find(req, res) {
     return materia_bloqueada.findAll({
       where: {
-        id: req.params.id,
+        id_profesor: req.params.id,
       },
     })
       .then((p) => res.status(200).send(p))

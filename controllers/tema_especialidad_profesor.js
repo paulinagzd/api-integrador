@@ -60,7 +60,7 @@ module.exports = {
   findProfesoresWithEspecialidad(req, res){
     return tema_especialidad_profesor.findAll({
       where: {
-        id_tema_especialidad: req.params.temaId,
+        id_tema_especialidad: req.params.temaId, 
       },
       include: profesor,
     })
