@@ -11,15 +11,20 @@ const materiaBloqueadaController = require('../controllers/materia_bloqueada');
 const userController = require('../controllers/users');
 
 function validateToken(req, res, next) {
-  const token = req.body.token;
-  if (token == null) res.sendStatus(400).send("Token not present")
+  const token = req.headers.authorization;
+  if (token == null) {
+    console.log("null");
+    return res.sendStatus(400).send("Token not present");
+  } 
   jwt.verify(token, "secret", (err, user) => {
       if (err) { 
-        res.status(403).send("Token invalid")
-      }
-      else {
-        req.user = user
-        next() //proceed to the next action in the calling function
+        console.log("error");
+       /// console.log(err);
+        return res.status(403).send("Token invalid");
+      } else {
+        //req.user = user
+        console.log("next done"); //proceed to the next action in the calling function
+        next();
       }
     }) //end of jwt.verify()
   } //end of function

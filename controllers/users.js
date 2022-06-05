@@ -61,17 +61,19 @@ function isValidPassword(password) {
         });
     },
     async authenticate(req, res) {
-        const user = await User.findOne({ where: { email: req.body.email } });
+      console.log("REQ ! AUTHENTICATE");
+        const user = await User.findOne({ where: { email: req.query.email } });
+        console.log(user);
         if (!user){
-            res.json({status: 'error', message: 'no user found'});
+            return res.json({status: 'error', message: 'no user found'});
         }
-        bcrypt.compare(req.body.password, user.password, (err, result) => {
+        bcrypt.compare(req.query.password, user.password, (err, result) => {
             if (err) {
                 return res.json({status: 'error', message: 'wrong password'});
             }
             if(result){
                 // authentication successful
-                const token = jwt.sign({ sub: omitHash(user.get())}, "secret", { expiresIn: '5m' });
+                const token = jwt.sign({ sub: omitHash(user.get())}, "secret", { expiresIn: '1m' });
                 return res.status(200).send({ ...omitHash(user.get()), token });
             }
             return res.json({status: 'error', message: 'wrong password'});

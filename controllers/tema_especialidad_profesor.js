@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const { tema_especialidad_profesor } = require('../models');
+const { tema_especialidad } = require('../models');
+
 const {profesor} = require('../models')
 
 module.exports = {
