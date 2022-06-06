@@ -71,7 +71,7 @@ function isValidPassword(password) {
             }
             if(result){
                 // authentication successful
-                const token = jwt.sign({ sub: omitHash(user.get())}, "secret", { expiresIn: '1m' });
+                const token = jwt.sign({ sub: omitHash(user.get())}, "secret", { expiresIn: '24h' });
                 return res.status(200).send({ ...omitHash(user.get()), token });
             }
             return res.json({status: 'error', message: 'wrong password'});
