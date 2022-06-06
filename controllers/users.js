@@ -77,6 +77,22 @@ function isValidPassword(password) {
             return res.json({status: 'error', message: 'wrong password'});
         })
     },
+    async check(req, res) {
+        const user = await User.findOne({ where: { email: req.body.email } });
+        if (!user){
+            res.json({status: 'error', message: 'no user found'});
+        }
+        bcrypt.compare(req.body.password, user.password, (err, result) => {
+            if (err) {
+                return res.json({status: 'error', message: 'wrong password'});
+            }
+            if(result){
+                // authentication successful
+                return res.status(200).send("success");
+            }
+            return res.json({status: 'error', message: 'wrong password'});
+        })
+    },
     async set(req, res){
         bcrypt.hash(req.body.password, 5)
         .then(async hash => {

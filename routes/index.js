@@ -92,4 +92,5 @@ module.exports = (app) => {
   app.post('/user/register', userController.create)
   app.get('/user/login', userController.authenticate)
   app.put('/user/changePwd', validateToken, userController.set)
+  app.get('/user/checkPwd', userController.check)
 };
